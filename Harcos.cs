@@ -107,6 +107,26 @@ namespace HarcosProjekt
            
         }
 
+        public void Gyogyul(Harcos One, Harcos Two) {
+            if (One.eletero == 0)
+            {
+                One.eletero = One.maxEletero;
+            }
+            else
+            {
+                One.eletero = One.eletero + 3 + One.szint;
+            }
+
+            if (Two.eletero == 0)
+            {
+                Two.eletero = Two.maxEletero;
+            }
+            else
+            {
+                Two.eletero = Two.eletero + 3 + Two.szint;
+            }
+        }
+
 
     }
 }
