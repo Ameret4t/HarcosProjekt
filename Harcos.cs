@@ -60,5 +60,53 @@ namespace HarcosProjekt
             return String.Format("{0} - LVL: {1} - EXP: {2} - HP: {3} - DMG: {4}",nev, szint, tapasztalat, eletero, Sebzes);
         }
 
+        public void megKuzd(Harcos Kihivo, Harcos Kihivott) {
+            if (Kihivo == Kihivott )
+            {
+                Console.WriteLine("A két harcos neve megyezik!");
+            }
+            else if (Kihivo.eletero == 0 || Kihivott.eletero == 0)
+            {
+                Console.WriteLine("A harcos életereje 0!");
+            }
+            bool kihivoTamad = true;
+
+            while (Kihivo.eletero != 0 && Kihivott.eletero != 0)
+            {
+                if (kihivoTamad)
+                {
+                    Kihivott.eletero = Kihivott.eletero - Kihivo.Sebzes;
+                }
+                else { 
+                    Kihivo.eletero = Kihivo.eletero - Kihivott.Sebzes; 
+                }
+
+                kihivoTamad = !kihivoTamad;
+
+                if (Kihivo.eletero != 0)
+                {
+                    Kihivo.tapasztalat = Kihivo.Tapasztalat + 5;
+                }
+
+                if (Kihivott.eletero != 0)
+                {
+                    Kihivott.tapasztalat = Kihivott.Tapasztalat + 5;
+                }
+
+                if (Kihivo.eletero == 0)
+                {
+                    Kihivott.tapasztalat = Kihivott.Tapasztalat + 10;
+                }
+
+                if (Kihivott.eletero != 0)
+                {
+                    Kihivo.tapasztalat = Kihivo.Tapasztalat + 10;
+                }
+            }
+
+           
+        }
+
+
     }
 }
