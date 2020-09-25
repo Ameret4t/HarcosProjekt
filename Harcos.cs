@@ -48,12 +48,10 @@ namespace HarcosProjekt
         public int Sebzes { get => alapSebzes + szint; }
         public int AlapSebzes { get => alapSebzes; }
         
-        public int maxEletero { get => alapEletero; }
+        public int maxEletero { get => alapEletero*3; }
         public int szintLepeshez { get =>  10 + szint * 5; }
 
-        public void toString() {
-            Console.WriteLine("{0} - LVL: {1} - EXP {2}");
-        }
+        
 
         public override string ToString()
         {
