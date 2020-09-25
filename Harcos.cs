@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,32 +63,32 @@ namespace HarcosProjekt
             return String.Format("{0} - LVL: {1} - EXP: {2} - HP: {3} - DMG: {4}",nev, szint, tapasztalat, eletero, Sebzes);
         }
 
-        public void megKuzd(Harcos Kihivo, Harcos Kihivott) {
-            if (Kihivo == Kihivott )
+        public void megKuzd(Harcos Kihivott) {
+            if (this.nev == Kihivott.nev )
             {
                 Console.WriteLine("A két harcos neve megyezik!");
             }
-            else if (Kihivo.eletero == 0 || Kihivott.eletero == 0)
+            else if (this.eletero == 0 || Kihivott.eletero == 0)
             {
                 Console.WriteLine("A harcos életereje 0!");
             }
             bool kihivoTamad = true;
 
-            while (Kihivo.eletero != 0 && Kihivott.eletero != 0)
+            while (this.eletero > 0 && Kihivott.eletero > 0)
             {
                 if (kihivoTamad)
                 {
-                    Kihivott.eletero = Kihivott.eletero - Kihivo.Sebzes;
+                    Kihivott.eletero = Kihivott.eletero - this.Sebzes;
                 }
                 else { 
-                    Kihivo.eletero = Kihivo.eletero - Kihivott.Sebzes; 
+                    this.eletero = this.eletero - Kihivott.Sebzes; 
                 }
 
                 kihivoTamad = !kihivoTamad;
 
-                if (Kihivo.eletero != 0)
+                if (this.eletero != 0)
                 {
-                    Kihivo.tapasztalat = Kihivo.Tapasztalat + 5;
+                    this.tapasztalat = this.Tapasztalat + 5;
                 }
 
                 if (Kihivott.eletero != 0)
@@ -95,39 +96,38 @@ namespace HarcosProjekt
                     Kihivott.tapasztalat = Kihivott.Tapasztalat + 5;
                 }
 
-                if (Kihivo.eletero == 0)
+                if (this.eletero == 0)
                 {
                     Kihivott.tapasztalat = Kihivott.Tapasztalat + 10;
                 }
 
                 if (Kihivott.eletero != 0)
                 {
-                    Kihivo.tapasztalat = Kihivo.Tapasztalat + 10;
+                    this.tapasztalat = this.Tapasztalat + 10;
                 }
             }
 
            
         }
 
-        public void Gyogyul(Harcos One, Harcos Two) {
-            if (One.eletero == 0)
+        public void Gyogyul() {
+            if (this.eletero == 0)
             {
-                One.eletero = One.maxEletero;
+                this.eletero = this.maxEletero;
             }
-            else
+            else if(this.eletero < this.maxEletero)
             {
-                One.eletero = One.eletero + 3 + One.szint;
+                this.eletero = this.eletero + 3 + this.szint;
             }
 
-            if (Two.eletero == 0)
+            if (this.eletero > this.maxEletero)
             {
-                Two.eletero = Two.maxEletero;
+                this.eletero = this.maxEletero;
             }
-            else
-            {
-                Two.eletero = Two.eletero + 3 + Two.szint;
-            }
+
         }
+
+        
 
 
     }
