@@ -50,5 +50,15 @@ namespace HarcosProjekt
         
         public int maxEletero { get => alapEletero; }
         public int szintLepeshez { get =>  10 + szint * 5; }
+
+        public void toString() {
+            Console.WriteLine("{0} - LVL: {1} - EXP {2}");
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0} - LVL: {1} - EXP: {2} - HP: {3} - DMG: {4}",nev, szint, tapasztalat, eletero, Sebzes);
+        }
+
     }
 }
