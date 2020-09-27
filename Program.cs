@@ -56,12 +56,15 @@ namespace HarcosProjekt
 
             Console.WriteLine("\nMit szeretne tenni?\na) Megküzdeni egy harcossal\nb) Gyógyulni\nc) Kilépni");
 
+            int korSzamlalo = 1;
+
             string dontes = "";
             while (!dontes.Equals("c"))
             {
                 dontes = Console.ReadLine();
-                if (dontes.Equals("a"))
+                if (dontes.Equals("a") && korSzamlalo % 3!=0 )
                 {
+                    korSzamlalo++;
                     Console.WriteLine("Adja meg a választott ellenfél sorszámát!");
                     User.megKuzd(harcosok[int.Parse(Console.ReadLine()) - 1]);
                     if (User.Eletero <= 0)
@@ -73,8 +76,30 @@ namespace HarcosProjekt
                             Console.WriteLine(i + "..");
                             Thread.Sleep(1000);
                         }
-                        
+
                         Environment.Exit(0);
+                    }
+                    else if (korSzamlalo % 3 == 0) {
+                        Console.WriteLine("3. kör: Egy véletlenül választott ellenfél ellen kell megküzdenie, nem választhat!");
+                        korSzamlalo = 0;
+                        Random rnd = new Random();
+                        int random = rnd.Next(1,3);
+                        Console.WriteLine("Ön a {0}. sorszámú harcos ellen fog megküzdeni!");
+                        User.megKuzd(harcosok[random-1]);
+                        if (User.Eletero <= 0)
+                        {
+                            Console.WriteLine("Vesztettél");
+                            Console.WriteLine("A játék véget ért és 5 másodpercen belül ki fog lépni.");
+                            for (int i = 5; i > 0; i--)
+                            {
+                                Console.WriteLine(i + "..");
+                                Thread.Sleep(1000);
+                            }
+
+                            Environment.Exit(0);
+                        }
+
+
                     }
                     else
                     {
@@ -83,7 +108,34 @@ namespace HarcosProjekt
                 }
                 else if (dontes.Equals("b"))
                 {
-                    User.Gyogyul();
+                    if (korSzamlalo%3!=0)
+                    {
+                        korSzamlalo++;
+
+                        User.Gyogyul();
+                    }
+                    else{
+                        Console.WriteLine("3. kör: Egy véletlenül választott ellenfél ellen kell megküzdenie, nem gyógyíthat!");
+                        korSzamlalo = 0;
+                        Random rnd = new Random();
+                        int random = rnd.Next(1, 3);
+                        Console.WriteLine("Ön a {0}. sorszámú harcos ellen fog megküzdeni!");
+                        User.megKuzd(harcosok[random - 1]);
+                        if (User.Eletero <= 0)
+                        {
+                            Console.WriteLine("Vesztettél");
+                            Console.WriteLine("A játék véget ért és 5 másodpercen belül ki fog lépni.");
+                            for (int i = 5; i > 0; i--)
+                            {
+                                Console.WriteLine(i + "..");
+                                Thread.Sleep(1000);
+                            }
+
+                            Environment.Exit(0);
+                        }
+                    }
+                    
+
                 }
                 else if (dontes.Equals("c"))
                 {
