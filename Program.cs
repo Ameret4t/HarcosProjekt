@@ -27,13 +27,13 @@ namespace HarcosProjekt
             }
             sr.Close();
 
-            Console.WriteLine("Harcosok a játékban: ");
+            /*Console.WriteLine("Harcosok a játékban: ");
             Console.WriteLine();
             
             for (int i = 0; i < harcosok.Count; i++)
             {
                 Console.WriteLine(harcosok[i]);
-            }
+            }*/
 
             Jatek();
 
@@ -74,11 +74,12 @@ namespace HarcosProjekt
             while (!dontes.Equals("c"))
             {
                 dontes = Console.ReadLine();
-                if (dontes.Equals("a") && korSzamlalo % 3!=0 )
+                if (dontes.Equals("a"))
                 {
                     korSzamlalo++;
                     Console.WriteLine("Adja meg a választott ellenfél sorszámát!");
-                    User.megKuzd(harcosok[int.Parse(Console.ReadLine()) - 1]);
+                    int kivel = int.Parse(Console.ReadLine()) ;
+                    User.megKuzd(harcosok[kivel-1]);
 
                     Console.WriteLine("A Harcosok éppen küzdenek...");
                     Thread.Sleep(3000);
@@ -94,7 +95,13 @@ namespace HarcosProjekt
 
                         Environment.Exit(0);
                     }
-                    else if (korSzamlalo % 3 == 0) {
+
+                    if (harcosok[kivel-1].Eletero <= 0)
+                    {
+                        harcosok.RemoveAt(kivel-1);
+                    }
+
+                    if (korSzamlalo % 3 == 0) {
                         korSzamlalo++;
                         Console.WriteLine("Adja meg a választott ellenfél sorszámát!");
                         User.megKuzd(harcosok[int.Parse(Console.ReadLine()) - 1]);
@@ -111,12 +118,15 @@ namespace HarcosProjekt
                             Environment.Exit(0);
                         }
 
+
+
                         Console.WriteLine("3. kör: Egy véletlenül választott ellenfél ellen is meg kell küzdenie!");
                         Random rnd = new Random();
                         int random = rnd.Next(1,4);
                         Console.WriteLine("Ön a {0}. sorszámú harcos ellen fog megküzdeni!", random);
                         Console.WriteLine("A Harcosok éppen küzdenek...");
                         Thread.Sleep(3000);
+
                         User.megKuzd(harcosok[random-1]);
                         if (User.Eletero <= 0)
                         {
@@ -129,6 +139,11 @@ namespace HarcosProjekt
                             }
 
                             Environment.Exit(0);
+                        }
+
+                        if (harcosok[random-1].Eletero <= 0)
+                        {
+                            harcosok.RemoveAt(random-1);
                         }
 
                         Console.WriteLine("Gyógyítás folyamatban...");
@@ -179,6 +194,12 @@ namespace HarcosProjekt
                             Environment.Exit(0);
 
                         }
+
+                        if (harcosok[random - 1].Eletero <= 0)
+                        {
+                            harcosok.RemoveAt(random - 1);
+                        }
+
                         Console.WriteLine("Gyógyítás folyamatban...");
                         Thread.Sleep(3000);
                         User.Gyogyul();
